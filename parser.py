@@ -56,12 +56,11 @@ class SuperjobCalendarParser():
                     if day.attrs['class'] != ['pk_other']:
                         date_day = self._to_date(year, month_text, day.get_text())
                         if day.attrs['class'] == ['pk_holiday', 'pie']:
-                            self.days[date_day] = False
+                            self.days[date_day] = 'holiday'
+                        elif day.attrs['class'] == ['pk_preholiday', 'pie']:
+                            self.days[date_day] = 'short'
                         else:
-                            self.days[date_day] = True
-
-    def is_workday(self, date):
-        return self.days.get(date)
+                            self.days[date_day] = 'work'
 
     def serialize(self):
         return dumps(dict([(x[0].isoformat(), x[1]) for x in self.days.iteritems()]))
@@ -72,10 +71,8 @@ class SuperjobCalendarParser():
 if __name__ == '__main__':
     s = SuperjobCalendarParser('http://www.superjob.ru/proizvodstvennyj_kalendar/', debug=True)
 
-    print s.is_workday(date(2012, 2, 2))
-
-    # or
     all_days = s.days
+    print all_days.get(date(2012, 2, 2))
     print all_days.get(date(2008, 1, 23))
     print all_days.get(date(2011, 1, 7))
 
