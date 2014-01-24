@@ -35,7 +35,7 @@ class SuperjobCalendarParser():
     def _get_soup(self, url):
         if self.debug:
             print 'fetch', url
-        return BeautifulSoup(urllib.urlopen(url).read().decode('cp1251'))
+        return BeautifulSoup(urllib.urlopen(url).read().decode('utf8'))
 
     def _to_date(self, year, month, day):
         return date(int(year), self.months_names.get(month), int(day))
@@ -74,7 +74,8 @@ if __name__ == '__main__':
     all_days = s.days
     print all_days.get(date(2012, 2, 2))
     print all_days.get(date(2008, 1, 23))
-    print all_days.get(date(2011, 1, 7))
+    print all_days.get(date(2014, 1, 7))
+    print all_days.get(date(2014, 2, 2))
 
     # json for save
     json = s.serialize()
