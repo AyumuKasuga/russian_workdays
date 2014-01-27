@@ -4,7 +4,9 @@ import urllib
 from datetime import date
 
 from bs4 import BeautifulSoup
-from simplejson import dumps
+from json import dumps
+from pickle import dumps as pdumps
+
 
 class SuperjobCalendarParser():
 
@@ -77,5 +79,11 @@ if __name__ == '__main__':
     print all_days.get(date(2014, 1, 7))
     print all_days.get(date(2014, 2, 2))
 
-    # json for save
+    # save as json
     json = s.serialize()
+    with open('days.json', 'w') as f:
+        f.write(json)
+
+    # save as pickle
+    with open('days.pickle', 'w') as f:
+        f.write(pdumps(all_days))
