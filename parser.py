@@ -37,7 +37,7 @@ class SuperjobCalendarParser():
     def _get_soup(self, url):
         if self.debug:
             print 'fetch', url
-        return BeautifulSoup(urllib.urlopen(url).read().decode('utf8'))
+        return BeautifulSoup(urllib.urlopen(url).read().decode('utf8'), 'html.parser')
 
     def _to_date(self, year, month, day):
         return date(int(year), self.months_names.get(month), int(day))
