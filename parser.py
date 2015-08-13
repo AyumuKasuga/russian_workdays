@@ -57,9 +57,9 @@ class SuperjobCalendarParser():
                 for day in month.find('div', {'class': 'ProductionCalendar_cells'}).findAll('div'):
                     if day.attrs['class'] != ['ProductionCalendar_other']:
                         date_day = self._to_date(year, month_text, day.get_text())
-                        if day.attrs['class'] == ['ProductionCalendar_holiday', 'pie']:
+                        if day.attrs['class'] == ['ProductionCalendar_holiday']:
                             self.days[date_day] = 'holiday'
-                        elif day.attrs['class'] == ['ProductionCalendar_preholiday', 'pie']:
+                        elif day.attrs['class'] == ['ProductionCalendar_preholiday']:
                             self.days[date_day] = 'short'
                         else:
                             self.days[date_day] = 'work'
